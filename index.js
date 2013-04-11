@@ -21,7 +21,7 @@ logger.init = function(compound){
 	}
 	compound.logger = this;
 
-	var logsDir = compound.root + '/logs';
+	var logsDir = compound.root + '/log';
 	var logFile = compound.app.set('env') + '.log'
 
 	var addTransport = function(){
@@ -41,7 +41,7 @@ logger.init = function(compound){
 		else {
 			stats = fs.statSync( logsDir );
 			if ( !stats.isDirectory() ){
-				this.error('Cannot create logs directory. File with the same name is already exists');
+				this.error('Cannot create log directory. File with the same name is already exists');
 			}
 			else {
 				// Directory is already exists
@@ -50,7 +50,7 @@ logger.init = function(compound){
 		}
 	}
 	catch( err ){
-		this.error('Cannot create logs directory. ' + err);
+		this.error('Cannot create log directory. ' + err);
 	}
 };
 
