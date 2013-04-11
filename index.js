@@ -20,7 +20,7 @@ winston.transports.File.prototype.log = function (level, msg, meta, callback) {
 
 // add "write" method for compatibility with old compound logger
 logger.write = function(str){
-	this.debug(str);
+	this.info(str);
 }
 
 // init logger with compound
