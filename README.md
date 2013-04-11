@@ -1,9 +1,9 @@
 co-logger
 =========
 
-Winston based logger for CompoundJS
+Winston based logger for [compound.js](https://github.com/1602/compound)
 
-Replace default CompoundJS logger with [Winston](https://github.com/flatiron/winston/).
+Replace default CompoundJS logger with [Winston](https://github.com/flatiron/winston/)
 
 Installation
 ============
