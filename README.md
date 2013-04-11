@@ -41,3 +41,9 @@ log = require("co-logger");
 log.debug("My log message");
 log.error("My log message with error", err);
 ```
+
+Or:
+
+```javascript
+compound.logger.warn("My log message");
+```
