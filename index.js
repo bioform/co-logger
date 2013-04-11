@@ -3,18 +3,27 @@ var winston = require('winston');
 
 var logger = new (winston.Logger)({
   transports: [
-    new (winston.transports.Console)({ json: false, timestamp: true }),
+    new (winston.transports.Console)({ json: false, timestamp: true, colorize: true }),
   ],
   exceptionHandlers: [
-    new (winston.transports.Console)({ json: false, timestamp: true }),
+    new (winston.transports.Console)({ json: false, timestamp: true, colorize: true }),
   ],
   exitOnError: false
 });
 
+// remove compound colorization for file transport
+old_log = winston.transports.File.prototype.log;
+winston.transports.File.prototype.log = function (level, msg, meta, callback) {
+	msg = msg.replace(/\u001b\[\d{1,3}m/g, '');
+	old_log.call(this, level, msg, meta, callback);
+};
+
+// add "write" method for compatibility with old compound logger
 logger.write = function(str){
 	this.debug(str);
 }
 
+// init logger with compound
 logger.init = function(compound){
 	if( !compound || !compound.root || !compound.app || typeof compound.app.set !== 'function'){
 		throw "'compound' object should be defined";
