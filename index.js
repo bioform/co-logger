@@ -11,10 +11,15 @@ var logger = new (winston.Logger)({
   exitOnError: false
 });
 
+logger.write = function(str){
+	this.debug(str);
+}
+
 logger.init = function(compound){
 	if( !compound || !compound.root || !compound.app || typeof compound.app.set !== 'function'){
 		throw "'compound' object should be defined";
 	}
+	compound.logger = this;
 
 	var logsDir = compound.root + '/logs';
 	var logFile = compound.app.set('env') + '.log'
