@@ -12,11 +12,8 @@ var logger = new (winston.Logger)({
 });
 
 logger.init = function(compound){
-	if( !compound ){
-		throw {
-			message: "'compound' parameter should be defined",
-			code: 500
-		}
+	if( !compound || !compound.root || !compound.app || typeof compound.app.set !== 'function'){
+		throw "'compound' object should be defined";
 	}
 
 	var logsDir = compound.root + '/logs';
