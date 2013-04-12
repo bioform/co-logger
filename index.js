@@ -12,7 +12,7 @@ var logger = new (winston.Logger)({
 });
 
 // remove compound colorization for file transport
-old_log = winston.transports.File.prototype.log;
+var old_log = winston.transports.File.prototype.log;
 winston.transports.File.prototype.log = function (level, msg, meta, callback) {
 	msg = msg.replace(/\u001b\[\d{1,3}m/g, '');
 	old_log.call(this, level, msg, meta, callback);
@@ -48,7 +48,7 @@ logger.init = function(compound){
 			addTransport();
 		}
 		else {
-			stats = fs.statSync( logsDir );
+			var stats = fs.statSync( logsDir );
 			if ( !stats.isDirectory() ){
 				this.error('Cannot create log directory. File with the same name is already exists');
 			}
