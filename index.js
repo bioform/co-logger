@@ -3,10 +3,10 @@ var winston = require('winston');
 
 var logger = new (winston.Logger)({
   transports: [
-    new (winston.transports.Console)({ json: false, timestamp: true, colorize: true }),
+    new (winston.transports.Console)({ json: false, timestamp: true, colorize: true, prettyPrint: true }),
   ],
   exceptionHandlers: [
-    new (winston.transports.Console)({ json: false, timestamp: true, colorize: true }),
+    new (winston.transports.Console)({ json: false, timestamp: true, colorize: true, prettyPrint: true }),
   ],
   exitOnError: false
 });
@@ -37,6 +37,7 @@ logger.init = function(compound){
 		this.add(winston.transports.File, {
 			filename: logsDir + '/' + logFile,
 			handleExceptions: true,
+			prettyPrint: true,
 			json: false
 		});
 	}.bind(this);
