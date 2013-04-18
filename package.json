@@ -1,6 +1,6 @@
 {
   "name": "co-logger",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Winston based logger for CompoundJS",
   "main": "index.js",
   "scripts": {
