@@ -8,7 +8,7 @@ var logger = new (winston.Logger)({
   exceptionHandlers: [
     new (winston.transports.Console)({ json: false, timestamp: true, colorize: true, prettyPrint: true }),
   ],
-  exitOnError: false
+  exitOnError: true
 });
 
 // remove compound colorization for file transport
