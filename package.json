@@ -1,6 +1,6 @@
 {
   "name": "co-logger",
-  "version": "0.0.3",
+  "version": "0.0.7",
   "description": "Winston based logger for CompoundJS",
   "main": "index.js",
   "scripts": {
@@ -18,6 +18,6 @@
   "author": "Andrew Krasnoff <andrew.krasnoff@gmail.com>",
   "license": "BSD",
   "dependencies": {
-    "winston": "~0.6.2"
+    "winston": "0.7.2"
   }
 }

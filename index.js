@@ -3,16 +3,16 @@ var winston = require('winston');
 
 var logger = new (winston.Logger)({
   transports: [
-    new (winston.transports.Console)({ json: false, timestamp: true, colorize: true }),
+    new (winston.transports.Console)({ json: false, timestamp: true, colorize: true, prettyPrint: true }),
   ],
   exceptionHandlers: [
-    new (winston.transports.Console)({ json: false, timestamp: true, colorize: true }),
+    new (winston.transports.Console)({ json: false, timestamp: true, colorize: true, prettyPrint: true }),
   ],
-  exitOnError: false
+  exitOnError: true
 });
 
 // remove compound colorization for file transport
-old_log = winston.transports.File.prototype.log;
+var old_log = winston.transports.File.prototype.log;
 winston.transports.File.prototype.log = function (level, msg, meta, callback) {
 	msg = msg.replace(/\u001b\[\d{1,3}m/g, '');
 	old_log.call(this, level, msg, meta, callback);
@@ -37,6 +37,7 @@ logger.init = function(compound){
 		this.add(winston.transports.File, {
 			filename: logsDir + '/' + logFile,
 			handleExceptions: true,
+			prettyPrint: true,
 			json: false
 		});
 	}.bind(this);
@@ -48,7 +49,7 @@ logger.init = function(compound){
 			addTransport();
 		}
 		else {
-			stats = fs.statSync( logsDir );
+			var stats = fs.statSync( logsDir );
 			if ( !stats.isDirectory() ){
 				this.error('Cannot create log directory. File with the same name is already exists');
 			}
