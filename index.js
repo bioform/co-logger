@@ -34,14 +34,22 @@ logger.init = function(compound){
 	var logFile = compound.app.set('env') + '.log'
 
 	var addTransport = function(){
-		this.add(winston.transports.File, {
-			filename: logsDir + '/' + logFile,
-			handleExceptions: true,
-			prettyPrint: true,
-			json: false
+	    if (!fileTransportExists(logsDir, logFile)) {
+	        this.add(winston.transports.File, {
+		    filename: logsDir + '/' + logFile,
+		    handleExceptions: true,
+		    prettyPrint: true,
+		    json: false
 		});
+            }
 	}.bind(this);
 
+    var fileTransportExists = function (logsDir, logFile) {
+        return this.transports.file && (
+            this.transports.file.dirname  === logsDir && 
+            this.transports.file.filename === logFile
+        );
+    }.bind(this);
 	
 	try {
 		if ( !fs.existsSync(logsDir) ){
