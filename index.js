@@ -30,8 +30,13 @@ logger.init = function(compound){
 	}
 	compound.logger = this;
 
+    if(compound.app.enabled('no default log')) {
+        this.info('Log output file not enabled');
+        return;
+    }
+
 	var logsDir = compound.root + '/log';
-	var logFile = compound.app.set('env') + '.log'
+	var logFile = compound.app.set('env') + '.log';
 
 	var addTransport = function(){
 	    if (!fileTransportExists(logsDir, logFile)) {
@@ -46,11 +51,11 @@ logger.init = function(compound){
 
     var fileTransportExists = function (logsDir, logFile) {
         return this.transports.file && (
-            this.transports.file.dirname  === logsDir && 
+            this.transports.file.dirname  === logsDir &&
             this.transports.file.filename === logFile
         );
     }.bind(this);
-	
+
 	try {
 		if ( !fs.existsSync(logsDir) ){
 			fs.mkdirSync( logsDir );
